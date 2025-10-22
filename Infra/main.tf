@@ -47,6 +47,17 @@ locals {
 }
 
 
+module "tf-alb" {
+  source             = "./modules/tf-alb"
+  vpc_id             = module.tf-vpc.vpc_id
+  public_subnet_ids  = local.public_subnet_ids
+  alb_name           = "frontend-alb"
+  acm_certificate_arn = var.acm_certificate_arn  
+  tags               = var.tags
+}
+
+
+
 module "tf-ecr" {
   source           = "./modules/tf-ecr"
   repository_names = var.ecr_repository_names
